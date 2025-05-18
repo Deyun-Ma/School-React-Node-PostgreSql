@@ -201,14 +201,14 @@ export default function Grades() {
             <Select
               value={selectedClass?.toString()}
               onValueChange={(value) => 
-                setSelectedClass(value ? parseInt(value) : undefined)
+                setSelectedClass(value !== "all_classes" ? parseInt(value) : undefined)
               }
             >
               <SelectTrigger>
                 <SelectValue placeholder="All Classes" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Classes</SelectItem>
+                <SelectItem value="all_classes">All Classes</SelectItem>
                 {classes?.map((classItem) => (
                   <SelectItem key={classItem.id} value={classItem.id.toString()}>
                     {classItem.className} ({classItem.classCode})
@@ -225,14 +225,14 @@ export default function Grades() {
             <Select
               value={selectedStudent?.toString()}
               onValueChange={(value) => 
-                setSelectedStudent(value ? parseInt(value) : undefined)
+                setSelectedStudent(value !== "all_students" ? parseInt(value) : undefined)
               }
             >
               <SelectTrigger>
                 <SelectValue placeholder="All Students" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Students</SelectItem>
+                <SelectItem value="all_students">All Students</SelectItem>
                 {students?.map((student) => (
                   <SelectItem key={student.id} value={student.id.toString()}>
                     {student.firstName} {student.lastName}
