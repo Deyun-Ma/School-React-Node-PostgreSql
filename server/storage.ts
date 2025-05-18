@@ -10,6 +10,11 @@ import {
   activities, Activity, InsertActivity
 } from "@shared/schema";
 
+// Helper function to format Date objects to ISO string date format (YYYY-MM-DD)
+function formatDateToString(date: Date): string {
+  return date.toISOString().split('T')[0];
+}
+
 export interface IStorage {
   // User management
   getUsers(): Promise<User[]>;
@@ -230,7 +235,27 @@ export class MemStorage implements IStorage {
 
   async createTeacher(insertTeacher: InsertTeacher): Promise<Teacher> {
     const id = this.teacherIdCounter++;
-    const teacher: Teacher = { ...insertTeacher, id };
+    
+    // Handle Date objects for dates 
+    let processedData: any = { ...insertTeacher };
+    
+    // Convert Date objects to string format if needed
+    if (processedData.joinDate instanceof Date) {
+      processedData.joinDate = formatDateToString(processedData.joinDate);
+    }
+    
+    const teacher: Teacher = { 
+      ...processedData, 
+      id,
+      // Ensure nullable fields are explicitly null and not undefined
+      address: processedData.address || null,
+      phone: processedData.phone || null,
+      qualification: processedData.qualification || null,
+      subjects: processedData.subjects || null,
+      avatar: processedData.avatar || null,
+      userId: processedData.userId || null
+    };
+    
     this.teachers.set(id, teacher);
     return teacher;
   }
