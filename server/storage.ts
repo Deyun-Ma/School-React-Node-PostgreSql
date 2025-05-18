@@ -710,7 +710,7 @@ export class MemStorage implements IStorage {
       firstName: "Olivia",
       lastName: "Martin",
       gender: "F",
-      dateOfBirth: new Date("2006-06-30"),
+      dateOfBirth: formatDateToString(new Date("2006-06-30")),
       email: "olivia.m@example.com",
       phone: "+1 234-567-8905",
       address: "505 Student Lane, Springfield",
@@ -718,7 +718,7 @@ export class MemStorage implements IStorage {
       guardianPhone: "+1 234-567-8950",
       gradeLevel: "11",
       section: "A",
-      enrollmentDate: new Date("2021-09-01"),
+      enrollmentDate: formatDateToString(new Date("2021-09-01")),
       avatar: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&h=100"
     });
 
