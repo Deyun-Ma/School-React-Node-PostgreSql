@@ -126,7 +126,7 @@ export default function AttendancePage() {
     {
       key: "date",
       header: "Date",
-      cell: (attendance: AttendanceType) => formatDate(attendance.date),
+      cell: (attendance: AttendanceType) => formatDate(new Date(attendance.date)),
       sortable: true,
     },
     {
@@ -196,14 +196,14 @@ export default function AttendancePage() {
             <Select
               value={selectedClass?.toString()}
               onValueChange={(value) => 
-                setSelectedClass(value ? parseInt(value) : undefined)
+                setSelectedClass(value !== "all_classes" ? parseInt(value) : undefined)
               }
             >
               <SelectTrigger>
                 <SelectValue placeholder="All Classes" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Classes</SelectItem>
+                <SelectItem value="all_classes">All Classes</SelectItem>
                 {classes?.map((classItem) => (
                   <SelectItem key={classItem.id} value={classItem.id.toString()}>
                     {classItem.className} ({classItem.classCode})

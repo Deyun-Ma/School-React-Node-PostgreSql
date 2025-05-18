@@ -179,7 +179,7 @@ export default function Grades() {
     {
       key: "date",
       header: "Graded Date",
-      cell: (grade: Grade) => formatDate(grade.gradedDate),
+      cell: (grade: Grade) => formatDate(new Date(grade.gradedDate)),
       sortable: true,
     },
   ];

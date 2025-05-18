@@ -1,7 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface AvatarPlaceholderProps {
-  src?: string;
+  src?: string | null | undefined;
   name: string;
   className?: string;
 }
@@ -17,7 +17,7 @@ const AvatarPlaceholder = ({ src, name, className }: AvatarPlaceholderProps) => 
 
   return (
     <Avatar className={className}>
-      <AvatarImage src={src} alt={name} />
+      <AvatarImage src={typeof src === 'string' ? src : undefined} alt={name} />
       <AvatarFallback>{initials}</AvatarFallback>
     </Avatar>
   );
