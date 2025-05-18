@@ -684,7 +684,7 @@ export class MemStorage implements IStorage {
       guardianPhone: "+1 234-567-8930",
       gradeLevel: "10",
       section: "A",
-      enrollmentDate: new Date("2022-09-01"),
+      enrollmentDate: formatDateToString(new Date("2022-09-01")),
       avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&h=100"
     });
 
@@ -693,7 +693,7 @@ export class MemStorage implements IStorage {
       firstName: "James",
       lastName: "Taylor",
       gender: "M",
-      dateOfBirth: new Date("2008-12-05"),
+      dateOfBirth: formatDateToString(new Date("2008-12-05")),
       email: "james.t@example.com",
       phone: "+1 234-567-8904",
       address: "404 Student Circle, Springfield",
@@ -701,7 +701,7 @@ export class MemStorage implements IStorage {
       guardianPhone: "+1 234-567-8940",
       gradeLevel: "9",
       section: "C",
-      enrollmentDate: new Date("2023-09-01"),
+      enrollmentDate: formatDateToString(new Date("2023-09-01")),
       avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&h=100"
     });
 
