@@ -14,6 +14,7 @@ import Classes from "@/pages/Classes";
 import AttendancePage from "@/pages/Attendance";
 import Grades from "@/pages/Grades";
 import Settings from "@/pages/Settings";
+import Help from "@/pages/Help";
 import NotFound from "@/pages/not-found";
 import Login from "@/pages/Login";
 
@@ -76,6 +77,12 @@ function Router() {
       <Route path="/settings">
         <MainLayout>
           <Settings />
+        </MainLayout>
+      </Route>
+      
+      <Route path="/help">
+        <MainLayout>
+          <Help />
         </MainLayout>
       </Route>
       
