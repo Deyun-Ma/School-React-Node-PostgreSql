@@ -165,7 +165,16 @@ export class MemStorage implements IStorage {
 
   async createUser(insertUser: InsertUser): Promise<User> {
     const id = this.userIdCounter++;
-    const user: User = { ...insertUser, id };
+    
+    const user: User = { 
+      ...insertUser, 
+      id,
+      // Ensure required fields have default values if not provided
+      role: insertUser.role || "teacher",
+      // Ensure nullable fields are explicitly null and not undefined
+      avatar: insertUser.avatar || null
+    };
+    
     this.users.set(id, user);
     return user;
   }
@@ -200,7 +209,29 @@ export class MemStorage implements IStorage {
 
   async createStudent(insertStudent: InsertStudent): Promise<Student> {
     const id = this.studentIdCounter++;
-    const student: Student = { ...insertStudent, id };
+    
+    // Handle Date objects for dates
+    let processedData: any = { ...insertStudent };
+    
+    // Convert Date objects to string format if needed
+    if (processedData.dateOfBirth instanceof Date) {
+      processedData.dateOfBirth = formatDateToString(processedData.dateOfBirth);
+    }
+    if (processedData.enrollmentDate instanceof Date) {
+      processedData.enrollmentDate = formatDateToString(processedData.enrollmentDate);
+    }
+    
+    const student: Student = { 
+      ...processedData, 
+      id,
+      // Ensure nullable fields are explicitly null and not undefined
+      phone: processedData.phone || null,
+      address: processedData.address || null,
+      guardianName: processedData.guardianName || null,
+      guardianPhone: processedData.guardianPhone || null,
+      avatar: processedData.avatar || null
+    };
+    
     this.students.set(id, student);
     return student;
   }
@@ -290,7 +321,19 @@ export class MemStorage implements IStorage {
 
   async createClass(insertClass: InsertClass): Promise<Class> {
     const id = this.classIdCounter++;
-    const classData: Class = { ...insertClass, id };
+    
+    // Handle nullable fields
+    const classData: Class = { 
+      ...insertClass, 
+      id,
+      // Ensure nullable fields are explicitly null and not undefined
+      section: insertClass.section || null,
+      description: insertClass.description || null,
+      teacherId: insertClass.teacherId || null,
+      schedule: insertClass.schedule || null,
+      roomNumber: insertClass.roomNumber || null
+    };
+    
     this.classes.set(id, classData);
     return classData;
   }
@@ -365,7 +408,22 @@ export class MemStorage implements IStorage {
 
   async createAttendance(insertAttendance: InsertAttendance): Promise<Attendance> {
     const id = this.attendanceIdCounter++;
-    const attendance: Attendance = { ...insertAttendance, id };
+    
+    // Handle Date objects for dates
+    let processedData: any = { ...insertAttendance };
+    
+    // Convert Date objects to string format if needed
+    if (processedData.date instanceof Date) {
+      processedData.date = formatDateToString(processedData.date);
+    }
+    
+    const attendance: Attendance = { 
+      ...processedData, 
+      id,
+      // Ensure nullable fields are explicitly null and not undefined
+      notes: processedData.notes || null 
+    };
+    
     this.attendance.set(id, attendance);
     return attendance;
   }
@@ -402,7 +460,22 @@ export class MemStorage implements IStorage {
 
   async createGrade(insertGrade: InsertGrade): Promise<Grade> {
     const id = this.gradeIdCounter++;
-    const grade: Grade = { ...insertGrade, id };
+    
+    // Handle Date objects for dates
+    let processedData: any = { ...insertGrade };
+    
+    // Convert Date objects to string format if needed
+    if (processedData.gradedDate instanceof Date) {
+      processedData.gradedDate = formatDateToString(processedData.gradedDate);
+    }
+    
+    const grade: Grade = { 
+      ...processedData, 
+      id,
+      // Ensure nullable fields are explicitly null and not undefined
+      comments: processedData.comments || null
+    };
+    
     this.grades.set(id, grade);
     return grade;
   }
@@ -431,7 +504,30 @@ export class MemStorage implements IStorage {
 
   async createEvent(insertEvent: InsertEvent): Promise<Event> {
     const id = this.eventIdCounter++;
-    const event: Event = { ...insertEvent, id };
+    
+    // Handle Date objects for dates
+    let processedData: any = { ...insertEvent };
+    
+    // Convert Date objects to string format if needed
+    if (processedData.startDate instanceof Date) {
+      processedData.startDate = formatDateToString(processedData.startDate);
+    }
+    if (processedData.endDate instanceof Date) {
+      processedData.endDate = formatDateToString(processedData.endDate);
+    }
+    
+    const event: Event = { 
+      ...processedData, 
+      id,
+      // Ensure nullable fields are explicitly null and not undefined
+      description: processedData.description || null,
+      endDate: processedData.endDate || null,
+      startTime: processedData.startTime || null,
+      endTime: processedData.endTime || null,
+      allDay: processedData.allDay || null,
+      location: processedData.location || null
+    };
+    
     this.events.set(id, event);
     return event;
   }
@@ -458,7 +554,17 @@ export class MemStorage implements IStorage {
 
   async createActivity(insertActivity: InsertActivity): Promise<Activity> {
     const id = this.activityIdCounter++;
-    const activity: Activity = { ...insertActivity, id, timestamp: new Date() };
+    
+    // Create activity with all required fields properly set
+    const activity: Activity = { 
+      ...insertActivity, 
+      id, 
+      timestamp: new Date(),
+      // Ensure nullable fields are explicitly null and not undefined
+      userId: insertActivity.userId || null,
+      details: insertActivity.details || null
+    };
+    
     this.activities.set(id, activity);
     return activity;
   }
@@ -496,7 +602,7 @@ export class MemStorage implements IStorage {
       phone: "+1-555-123-4567",
       address: "123 Oak St, Springfield",
       qualification: "M.Ed in Mathematics",
-      joinDate: new Date("2020-08-01"),
+      joinDate: formatDateToString(new Date("2020-08-01")),
       subjects: ["Mathematics", "Physics"],
       avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&h=100",
       userId: 1
@@ -510,7 +616,7 @@ export class MemStorage implements IStorage {
       phone: "+1-555-234-5678",
       address: "456 Maple Ave, Springfield",
       qualification: "Ph.D in Literature",
-      joinDate: new Date("2019-07-15"),
+      joinDate: formatDateToString(new Date("2019-07-15")),
       subjects: ["English Literature", "Grammar"],
       avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&h=100",
       userId: undefined
@@ -524,7 +630,7 @@ export class MemStorage implements IStorage {
       phone: "+1-555-345-6789",
       address: "789 Pine Rd, Springfield",
       qualification: "M.Sc in Biology",
-      joinDate: new Date("2021-01-10"),
+      joinDate: formatDateToString(new Date("2021-01-10")),
       subjects: ["Biology", "Chemistry"],
       avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&h=100",
       userId: undefined
